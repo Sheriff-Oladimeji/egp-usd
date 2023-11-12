@@ -1,0 +1,25 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+header {
+    background-color: #3498db;
+    padding: 20px;
+    color: #fff;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+.exchange-rate {
+    margin: 20px;
+    font-size: 1.5rem;
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+}
