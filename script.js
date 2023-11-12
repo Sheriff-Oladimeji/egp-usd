@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((response) => response.json())
     .then((data) => {
       const exchangeRateValue = data.conversion_rate;
-      const usdToEgp = `1 USD = ${exchangeRateValue} EGP`;
+      const usdToEgp = `1 USD = ${exchangeRateValue.toFixed(2)} EGP`;
       const egpToUsd = `1 EGP = ${(1 / exchangeRateValue).toFixed(2)} USD`;
 
       
