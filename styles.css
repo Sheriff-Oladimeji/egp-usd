@@ -1,10 +1,11 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
+    margin: 0;
 }
 
 header {
-    background-color: #3498db;
+    background-color: #4285f4;
     padding: 20px;
     color: #fff;
 }
@@ -16,10 +17,30 @@ h1 {
 .exchange-rate {
     margin: 20px;
     font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+input {
+    padding: 10px;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    width: 200px;
 }
 
 @media (max-width: 600px) {
     h1 {
         font-size: 1.5rem;
+    }
+
+    input {
+        width: 100%;
     }
 }

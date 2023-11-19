@@ -1,36 +1,41 @@
 document.addEventListener("DOMContentLoaded", function () {
-  
-  const apiUrl =
-    "https://v6.exchangerate-api.com/v6/d73e148bd45c1e9d012fc3a8/pair/USD/EGP";
+  const usdAmountInput = document.getElementById("usdAmount");
+  const egpAmountInput = document.getElementById("egpAmount");
 
-  fetch(apiUrl)
-    .then((response) => response.json())
-    .then((data) => {
-      const exchangeRateValue = data.conversion_rate;
-      const usdToEgp = `1 USD = ${exchangeRateValue.toFixed(2)} EGP`;
-      const egpToUsd = `1 EGP = ${(1 / exchangeRateValue).toFixed(2)} USD`;
+  function updateExchangeRate(usdAmount) {
+    const apiKey = "d73e148bd45c1e9d012fc3a8"; // Replace with your actual API key
+    const apiUrl = `https://v6.exchangerate-api.com/v6/${apiKey}/pair/USD/EGP/${usdAmount}`;
 
-      
-      const exchangeRateElement = document.getElementById(
-        "exchange-rate-value"
-      );
-      let loading = document.getElementById("Loading");
-      
-      const usdToEgpElement = document.createElement("p");
-      usdToEgpElement.textContent = usdToEgp;
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.result === "success") {
+          const exchangeRateValue = data.conversion_rate;
+          const egpAmount = (usdAmount * exchangeRateValue).toFixed(2);
 
-      const egpToUsdElement = document.createElement("p");
-      egpToUsdElement.textContent = egpToUsd;
-      if (usdToEgpElement && egpToUsdElement) {
-        loading.style.display = "none";
-      }
-      
-      exchangeRateElement.appendChild(usdToEgpElement);
-      exchangeRateElement.appendChild(egpToUsdElement);
-    })
-    .catch((error) => {
-      console.error("Error fetching data: " + error);
-      document.getElementById("exchange-rate-value").textContent =
-        "لا يمكن العثور على البيانات";
-    });
+          egpAmountInput.value = egpAmount;
+        } else {
+          console.error("Error in API response:", data["error-type"]);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching data: " + error);
+      });
+  }
+
+  usdAmountInput.addEventListener("input", function () {
+    const usdAmount = parseFloat(usdAmountInput.value) || 0;
+    updateExchangeRate(usdAmount);
+  });
+
+  egpAmountInput.addEventListener("input", function () {
+    const egpAmount = parseFloat(egpAmountInput.value) || 0;
+    
+
+    const usdAmount = (egpAmount / exchangeRateValue).toFixed(2);
+    usdAmountInput.value = usdAmount;
+  });
+
+  // Initial load
+  updateExchangeRate(1); // Default USD amount
 });
